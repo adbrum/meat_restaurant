@@ -12,15 +12,20 @@ import {Injectable} from '@angular/core';
 import {Http} from '@angular/http';
 import {MEAT_API} from '../app.api';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import {ErrorHandler} from '../app.error-handler';
+
 var RestaurantsService = (function () {
   function RestaurantsService(http) {
     this.http = http;
   }
 
   RestaurantsService.prototype.restaurants = function () {
-    return this.http.get(MEAT_API + "/restaurants").map(function (response) {
-      return response.json();
-    });
+    return this.http.get(MEAT_API + "/restaurants")
+      .map(function (response) {
+        return response.json();
+      })
+      .catch(ErrorHandler.handleError);
   };
   return RestaurantsService;
 }());
