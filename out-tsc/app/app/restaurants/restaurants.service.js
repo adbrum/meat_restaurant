@@ -1,28 +1,32 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+  var c = arguments.length,
+    r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+  if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+  else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+  return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+  if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+import {Injectable} from '@angular/core';
+import {Http} from '@angular/http';
+import {MEAT_API} from '../app.api';
+import 'rxjs/add/operator/map';
 var RestaurantsService = (function () {
-    function RestaurantsService() {
-        this.rests = [
-            {
-                id: "bread-bakery",
-                name: "Bread & Bakery",
-                category: "Bakery",
-                deliveryEstimate: "25m",
-                rating: 4.9,
-                imagePath: "assets/img/restaurants/breadbakery.png"
-            },
-            {
-                id: "burger-house",
-                name: "Burger House",
-                category: "Hamburgers",
-                deliveryEstimate: "100m",
-                rating: 3.5,
-                imagePath: "assets/img/restaurants/burgerhouse.png"
-            }
-        ];
-    }
-    RestaurantsService.prototype.restaurants = function () {
-        return this.rests;
-    };
-    return RestaurantsService;
+  function RestaurantsService(http) {
+    this.http = http;
+  }
+
+  RestaurantsService.prototype.restaurants = function () {
+    return this.http.get(MEAT_API + "/restaurants").map(function (response) {
+      return response.json();
+    });
+  };
+  return RestaurantsService;
 }());
+RestaurantsService = __decorate([
+  Injectable(),
+  __metadata("design:paramtypes", [Http])
+], RestaurantsService);
 export { RestaurantsService };
 //# sourceMappingURL=restaurants.service.js.map

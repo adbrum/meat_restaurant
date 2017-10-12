@@ -15,7 +15,10 @@ var RestaurantsComponent = (function () {
         this.restaurants = [];
     }
     RestaurantsComponent.prototype.ngOnInit = function () {
-        this.restaurants = this.restaurantsService.restaurants();
+      var _this = this;
+      this.restaurantsService.restaurants().subscribe(function (restaurants) {
+        return _this.restaurants = restaurants;
+      });
     };
     return RestaurantsComponent;
 }());
